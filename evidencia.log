@@ -1,0 +1,124 @@
+======================================================================
+ Evidencia - 2026-11-18 18:30:28.143170
+======================================================================
+archivo : evidencia\capturar_evidencia.sh
+tamano  : 1237 bytes
+mtime   : 2026-11-18 18:29:47.170530
+sha256  : ae92e4237b77986ddc1f8455bf5c82c5fdb078d30f1951b94457cebb7825357b
+sha1    : 566bf3424ded66308f3461b11216a280d007f0b6
+md5     : f8022d03ce962e4fc107eef027d36c8d
+----------------------------------------------------------------------
+archivo : evidencia\config-dns.txt
+tamano  : 1620 bytes
+mtime   : 2026-11-18 18:30:00.786730
+sha256  : 996bbfcdd3d1269f1575d9bf439e861645a0ef12f2f4a36343e8976525343158
+sha1    : ed464ad49e3c0f492f21044eed1b89d3a2e9de32
+md5     : c46731a737a2aa4db875efb6ac914170
+----------------------------------------------------------------------
+archivo : evidencia\config-gateway.txt
+tamano  : 2400 bytes
+mtime   : 2026-11-18 18:29:58.187302
+sha256  : 587fb41aeba65ea5156ee1c3767624ca4c445dc03bcb84160360879d614abcf2
+sha1    : 1eabd7c798c2d03b94d2eeb25f28423a246ae85c
+md5     : 8becce6646c3eb391bfd67cf0a965fe7
+----------------------------------------------------------------------
+archivo : evidencia\config-host.txt
+tamano  : 579 bytes
+mtime   : 2026-11-18 18:30:10.003434
+sha256  : a76c2cbc84772eeabec41611b9bf10af7d2384662f07e0729889e6e203c1cd17
+sha1    : 6aa6144c3e546e282b34c4d3dedce1423eb17c25
+md5     : 96241e4a524f7fdd462ddd4139781f0e
+----------------------------------------------------------------------
+archivo : evidencia\config-web.txt
+tamano  : 1689 bytes
+mtime   : 2026-11-18 18:29:59.491243
+sha256  : 64d8876a874c6de64d49917c8044be7aa9c061a72925c3e85ab10c9fe4a1fe4a
+sha1    : c8d792aac2dcfa23c69834937d44fc75ad827306
+md5     : dc3f6688dc60dfc6e3710d01d26c3d01
+----------------------------------------------------------------------
+archivo : evidencia\config-xmpp.txt
+tamano  : 2098 bytes
+mtime   : 2026-11-18 18:30:02.067175
+sha256  : 68bb31dd143f9b507173b334c1a7e23c58d0c39480b1b3abb1b13574ad947e97
+sha1    : 8ab0bd56db1c6e386732586c25f6c38cfb6af956
+md5     : 3eae733bf1839faec72cc61029783a90
+----------------------------------------------------------------------
+archivo : evidencia\verificacion-dns.txt
+tamano  : 1052 bytes
+mtime   : 2026-11-18 18:29:32.444729
+sha256  : 8cc8a414f1ac9944148d2d7ba3704e017b4e870da3d2da014909876b41f0fe48
+sha1    : e3a1b6ce8bb153dc2b28520a26778587e866f2aa
+md5     : eb00dc02bea8cea0487bcc9f84054f46
+----------------------------------------------------------------------
+archivo : evidencia\verificacion-gateway.txt
+tamano  : 1040 bytes
+mtime   : 2026-11-18 18:29:29.327577
+sha256  : 389c3189ada8cd32cfd7fc2220ca594ee006ae5aa35018061b06ef88661ce8bf
+sha1    : 76b5f6851eb0c32f20256a3159c13178038445a0
+md5     : 74ffed3b259c06f819d6eff912301567
+----------------------------------------------------------------------
+archivo : evidencia\verificacion-web.txt
+tamano  : 1047 bytes
+mtime   : 2026-11-18 18:29:30.893868
+sha256  : e77c8b08c586b2ecea304458f1115498bfb7d1fd039db698b083a9a3e73f2eb6
+sha1    : 2f64ce969007b1a046828f102ed53747310aa429
+md5     : 2a68e5d5b24f07b32df0df0029e1012c
+----------------------------------------------------------------------
+archivo : evidencia\verificacion-xmpp.txt
+tamano  : 1011 bytes
+mtime   : 2026-11-18 18:29:33.947186
+sha256  : 22746f6daa1df58e0680728f6d8a843d640bc7a1182cb0daf65225f4a4e8899b
+sha1    : 80eaadb7c2b282859ccd9d0d962105276671294e
+md5     : 9448399d622214d3eedd5266d2f4c662
+----------------------------------------------------------------------
+archivo : evidencia\wireshark-version.txt
+tamano  : 7 bytes
+mtime   : 2026-11-18 18:30:10.436233
+sha256  : d62e5610c4ce1bf6f9d3c1047c7023152f19d6a11920272077cc0830fbfd8433
+sha1    : 6069b4225f4723a3947084d77e3ff274fff77a71
+md5     : 73d4f2e05835b9e618792adcd70041e2
+----------------------------------------------------------------------
+fin
+======================================================================
+ Evidencia - 2026-11-18 18:35:02.261776
+======================================================================
+archivo : evidencia/pantallazos\dns-resolucion.png
+tamano  : 8052 bytes
+mtime   : 2026-11-18 18:34:23.679826
+sha256  : 2187a183d6a7a5e76b5f6e45f1cdc6fc6e9fc50e29685ea171c258953e338b06
+sha1    : 1bd58a745224e51427b5cf5e6693b5a175f97a27
+md5     : 99b7b64d15d996a87c7dbed64ea8239f
+----------------------------------------------------------------------
+archivo : evidencia/pantallazos\gateway-firewall.png
+tamano  : 10500 bytes
+mtime   : 2026-11-18 18:33:34.384753
+sha256  : f69c81637db7d3700cbf7c39eeaa96bff4923f0f84234b04f99e40a257541cc2
+sha1    : 00207f31405b437f58bf48e7aa69f9bf6cea38a1
+md5     : c75eeb41e20c546e47336d29e50c86c1
+----------------------------------------------------------------------
+archivo : evidencia/pantallazos\web-nginx.png
+tamano  : 11675 bytes
+mtime   : 2026-11-18 18:34:08.268577
+sha256  : a0db955414fc1178247bfe44bbdc4ba852c49c24b5403e1b5feefb5030b1d063
+sha1    : 711966b0fc96a2b93159468286349c42af38140c
+md5     : cc7313399966da79cec4273a1ded5921
+----------------------------------------------------------------------
+archivo : evidencia/pantallazos\xmpp-prosody.png
+tamano  : 9221 bytes
+mtime   : 2026-11-18 18:34:41.476761
+sha256  : 86a96a0a62f82a995827e787648a1761c80590d19ad892e2d253f79b95788904
+sha1    : e429dda7f95154a098b26553d23219801c982a0f
+md5     : 041a720fc3c772c44d5d89401752cbcb
+----------------------------------------------------------------------
+fin
+======================================================================
+ Evidencia - 2026-11-18 18:49:50.194482
+======================================================================
+archivo : evidencia/pantallazos/host-wireshark.png
+tamano  : 104962 bytes
+mtime   : 2026-11-18 18:49:25.643421
+sha256  : 82455f8af4cb0ee86c4437e5c2e14546dc8f18d1f332f9f97c2b43b90583d5ab
+sha1    : 0c08fbf2d22e29ca3c518ebcfcbd9ceb016bcaf0
+md5     : f61d692aab98b60a9ab757b0de879107
+----------------------------------------------------------------------
+fin
