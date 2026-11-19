@@ -1,7 +1,5 @@
 %======================================================================
 \section{Caso 6 — UDP: reflexión y amplificación DNS, NTP o SSDP}
-\SINT\ \REAL\ \ANA
-
 En la reflexión, el atacante envía solicitudes pequeñas con la IP de la víctima falsificada a un servicio que responde con mucho más tráfico. El caso modela esa asimetría con datagramas genéricos y comprueba con una consulta real si el resolver del laboratorio responde a recursión.
 
 \begin{ficha}{Ficha del Caso 6 — Reflexión UDP.}
@@ -21,9 +19,9 @@ El factor de amplificación se define como
 \[ \text{BAF} = \frac{\text{bytes de respuesta}}{\text{bytes de solicitud}}, \]
 y se informa tanto sobre tramas capturadas (sin FCS ni relleno Ethernet) como sobre payload UDP. Las tasas se normalizan por el ancho nominal de ventana de 0,5~s.
 
-\fig[0.98]{term-c06-tshark.png}{\ANA\ \SINT\ Primeros datagramas del PCAP: el par DNS válido y las solicitudes de 48~B seguidas de respuestas de 468~B en el puerto 40000.}
-\fig[0.98]{term-c06.png}{\ANA\ Salida de \texttt{analizar\_caso06.py}: cocientes de amplificación, tasas por ventana y la prueba real de resolver abierto.}
-\fig{caso06-wireshark-final.png}{\SINT\ El modelo UDP y el DNS válido en Wireshark; el puerto 40000 no se presenta como NTP.}
+\fig[0.98]{term-c06-tshark.png}{Primeros datagramas del PCAP: el par DNS válido y las solicitudes de 48~B seguidas de respuestas de 468~B en el puerto 40000.}
+\fig[0.98]{term-c06.png}{Salida de \texttt{analizar\_caso06.py}: cocientes de amplificación, tasas por ventana y la prueba real de resolver abierto.}
+\fig{caso06-wireshark-final.png}{El modelo UDP y el DNS válido en Wireshark; el puerto 40000 no se presenta como NTP.}
 \fig[0.75]{caso06-udp-rate.png}{Paquetes y bytes por segundo normalizados por ventana de 0,5~s; la última ventana está observada solo en parte.}
 
 En la ventana [1,0;1,5)~s hay 25 datagramas (50 paquetes/s y 8700~B/s) y en [1,5;2,0)~s, 15 datagramas (30 paquetes/s y 15300~B/s): pocas respuestas grandes pesan más que muchas solicitudes pequeñas. El cociente diseñado no mide la amplificación de ningún servicio real; como referencia, la literatura reporta factores mucho mayores para NTP \emph{monlist}, DNS abierto o SSDP \cite{rossow2014}.
@@ -44,8 +42,6 @@ En la ventana [1,0;1,5)~s hay 25 datagramas (50 paquetes/s y 8700~B/s) y en [1,5
 
 %======================================================================
 \section{Caso 7 — ICMP: escaneo, payloads atípicos y posible túnel}
-\SINT\ \REAL\ \PROP\ \ANA
-
 ICMP sirve para diagnosticar, pero ráfagas de echo o cargas grandes pueden indicar reconocimiento o un canal encubierto. El caso compara un escenario sintético con el ICMP real de la línea base.
 
 \begin{ficha}{Ficha del Caso 7 — ICMP.}
@@ -63,14 +59,14 @@ Estado & Diferencias observadas en simulación; túnel y umbrales no confirmados
 \subsection{Procedimiento y evidencia}
 Se leen ambas capturas filtrando echo IPv4 (tipos 0 y 8) sin fragmentar. El payload se calcula como \cod{ip.len - ip.hdr\_len - 8}, no con \cod{frame.len}, que incluye las cabeceras Ethernet, IPv4 e ICMP.
 
-\fig[0.98]{term-c07.png}{\ANA\ Salida de \texttt{analizar\_caso07.py} y paquetes de .100: requests de 64~B cada 0,1~s y cinco de 1289~B de datos (1331~B de trama).}
-\fig{caso07-wireshark-final.png}{\SINT\ El escenario ICMP en Wireshark.}
+\fig[0.98]{term-c07.png}{Salida de \texttt{analizar\_caso07.py} y paquetes de .100: requests de 64~B cada 0,1~s y cinco de 1289~B de datos (1331~B de trama).}
+\fig{caso07-wireshark-final.png}{El escenario ICMP en Wireshark.}
 \fig[0.8]{caso07-icmp-freq.png}{Echo-request por ventana de 1~s y por origen en el modelo (arriba: .100 sostiene 10/s) y en la línea base real (abajo: .10 hace ping a las cuatro VMs aproximadamente cada 15~s), cada uno con su eje temporal.}
 
 En la línea base real, .10 hace ping a cada VM cada 15~s aproximadamente: 19 requests en 296,67~s (0,064/s) con 32~B, el tamaño por defecto de \cod{ping} en Windows. El modelo alcanza 10/s y cinco cargas de 1289~B, valores que destacan frente a esa referencia; pero un ping con \cod{-l 1300} legítimo produce lo mismo.
 
-\subsection{Regla propuesta}
-\PROP\ Para el host web .20: descartar solo el exceso de echo-request.
+\subsection{Regla de detección y mitigación}
+Para el host web .20: descartar solo el exceso de echo-request.
 \begin{lstlisting}
 table inet caso07_echo {
   chain input {
@@ -95,8 +91,6 @@ Como detección, alertar (sin bloquear) cuando un origen supere 5 echo/s sosteni
 
 %======================================================================
 \section{Caso 8 — Escaneo de puertos y fingerprinting de servicios}
-\SINT\ \PROP\ \ANA
-
 El reconocimiento suele preceder a un ataque. La señal de un escaneo no es el número de paquetes sino cuántos puertos \emph{distintos} sondea un origen en poco tiempo.
 
 \begin{ficha}{Ficha del Caso 8 — Escaneo de puertos.}
@@ -114,15 +108,15 @@ Estado & Patrón sintético; exposición real no confirmada\\
 \subsection{Procedimiento y evidencia}
 Se filtran SYN iniciales (\cod{tcp.flags.syn == 1 \&\& tcp.flags.ack == 0}) y se calcula, por ventana fija, origen y destino, el número de SYN y la cardinalidad del conjunto de puertos.
 
-\fig[0.98]{term-c08-tshark.png}{\ANA\ \SINT\ Sondeo secuencial de .100 a .20: un SYN por puerto y la respuesta RST o SYN-ACK programada.}
-\fig[0.98]{term-c08.png}{\ANA\ Salida de \texttt{analizar\_caso08.py}: 20 puertos distintos hacia .20 en menos de 0,2~s y 5 hacia .30.}
-\fig{caso08-wireshark-final.png}{\SINT\ El escaneo en Wireshark.}
+\fig[0.98]{term-c08-tshark.png}{Sondeo secuencial de .100 a .20: un SYN por puerto y la respuesta RST o SYN-ACK programada.}
+\fig[0.98]{term-c08.png}{Salida de \texttt{analizar\_caso08.py}: 20 puertos distintos hacia .20 en menos de 0,2~s y 5 hacia .30.}
+\fig{caso08-wireshark-final.png}{El escaneo en Wireshark.}
 \fig[0.75]{caso08-portscan.png}{Puertos destino distintos por origen y destino en la ventana [0,1)~s: 20 hacia .20 y 5 hacia .30.}
 
 La lista de respuestas es parcial y escrita en el generador: no incluye SSH de .30, aunque ese puerto sí escucha según el inventario real del Caso~3. Coincidir parcialmente con el inventario no significa que se descubrió nada.
 
-\subsection{Regla propuesta}
-\PROP\ Registro limitado de SYN en los endpoints .20 y .30, sin descartar:
+\subsection{Regla de detección y mitigación}
+Registro limitado de SYN en los endpoints .20 y .30, sin descartar:
 \begin{lstlisting}
 table inet caso08_observacion {
   chain input {
@@ -148,8 +142,6 @@ El \cod{limit} antes de \cod{log} limita la escritura de registros, así que el 
 
 %======================================================================
 \section{Caso 9 — Priorización y correlación de alertas con IA y SIEM}\label{sec:caso9}
-\REAL\ \SIM\ \ANA
-
 Una alerta aislada rara vez basta. El caso construye un pipeline local que normaliza logs reales del laboratorio, los agrupa por origen y minuto, y asigna un puntaje explicable. Como no se instaló Wazuh, el pipeline en Python cumple sus etapas: recolección, normalización, correlación, puntuación y presentación.
 
 \begin{ficha}{Ficha del Caso 9 — Correlación SIEM.}
@@ -187,7 +179,7 @@ Consultas DNS con etiqueta $>$ 30 & $\geq 3$ & 6\\
 \bottomrule\end{tabular}\end{table}
 
 \subsection{Ejemplo de alerta enriquecida}
-\fig[0.98]{term-c09.png}{\ANA\ Re-ejecución del pipeline: 168 eventos reales, 21 sintéticos, 37 ventanas, 0 alertas reales y 1 sintética.}
+\fig[0.98]{term-c09.png}{Re-ejecución del pipeline: 168 eventos reales, 21 sintéticos, 37 ventanas, 0 alertas reales y 1 sintética.}
 \begin{lstlisting}
 { "evidence_kind": "sintetica", "subject": "192.168.50.100",
   "window_utc": "2026-11-19T01:30:00+00:00", "window_seconds": 60,
@@ -199,7 +191,7 @@ Consultas DNS con etiqueta $>$ 30 & $\geq 3$ & 6\\
   "alert": true, "evidence_refs": ["caso09-escenario-sintetico.jsonl:1", ...] }
 \end{lstlisting}
 El puntaje se explica solo: 30 + 9 + 10 = 49. El escenario de las 20:30 locales corresponde a las 01:30 UTC del 19 de noviembre.
-\fig{caso09-consola-final.png}{\REAL\ Ejecución del pipeline en el equipo analista.}
+\fig{caso09-consola-final.png}{Ejecución del pipeline en el equipo analista.}
 
 \subsection{Registro de validación humana}
 La ejecución automática no sustituye la revisión. \cod{caso09-validacion-humana.json} sigue en estado \emph{pendiente}. Para completarlo se preparó \cod{scripts/registrar\_dictamen\_caso09.py}, que exige nombre del revisor, dictamen (\emph{confirma}, \emph{confirma con reservas} o \emph{rechaza}), una nota y si algún log se envió a un LLM externo; el script registra la decisión, no la toma.
@@ -214,8 +206,6 @@ Un LLM puede resumir alertas ya anonimizadas y proponer hipótesis, previa autor
 
 %======================================================================
 \section{Caso 10 — Mensajería XMPP: interceptación y errores de TLS}
-\REAL\ \ANA
-
 Este es el único caso con tráfico real de extremo a extremo. El estado inicial de Prosody no tenía certificado y no completaba TLS; se corrigió de forma acotada y se verificó con pruebas positivas y negativas.
 
 \begin{ficha}{Ficha del Caso 10 — XMPP sobre TLS.}
@@ -256,9 +246,9 @@ Antes del cifrado, el servidor anuncia STARTTLS como \cod{<required/>} y no ofre
 
 \subsection{Captura y correlación}
 Captura real de 20~s en el analista, filtrada a \cod{host 192.168.50.30 and tcp port 5222}: 66 tramas.
-\fig[0.98]{term-c10.png}{\ANA\ \REAL\ Resultados guardados de las tres pruebas y handshakes del PCAP real: tres ClientHello con SNI, sus ServerHello y las dos alertas fatales de los controles negativos (tramas 36 y 54).}
-\fig{caso10-wireshark.png}{\REAL\ Wireshark con filtro \texttt{tls}: ClientHello, ServerHello y alertas de certificado.}
-\fig{caso10-consola.png}{\REAL\ Consola del analista con el resumen de las pruebas.}
+\fig[0.98]{term-c10.png}{Resultados guardados de las tres pruebas y handshakes del PCAP real: tres ClientHello con SNI, sus ServerHello y las dos alertas fatales de los controles negativos (tramas 36 y 54).}
+\fig{caso10-wireshark.png}{Wireshark con filtro \texttt{tls}: ClientHello, ServerHello y alertas de certificado.}
+\fig{caso10-consola.png}{Consola del analista con el resumen de las pruebas.}
 En TLS~1.3 la etiqueta \emph{Application Data} también transporta mensajes cifrados del propio saludo: no prueba que se enviaran mensajes de usuario. No se guardaron secretos de sesión ni se descifró contenido.
 
 \subsection{Plan de corrección}

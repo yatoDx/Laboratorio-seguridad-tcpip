@@ -21,22 +21,14 @@
 \usepackage{amsmath}
 \usepackage[hidelinks,pdfusetitle]{hyperref}
 \usepackage{bookmark}
+\usepackage{pdfpages}
 
 \hypersetup{pdftitle={Informe técnico - Taller 2: Mecanismos de seguridad para redes IEEE 802.3 con servidores TCP/IP},pdfauthor={Juan Esteban Buitrago Chavez}}
 
-% ---------- colores y etiquetas de tipo de evidencia
 \definecolor{udazul}{HTML}{0B3C78}
+\definecolor{codebg}{HTML}{F5F6F8}
 \definecolor{bgreal}{HTML}{1E7B34}
 \definecolor{bgsint}{HTML}{0B5CAB}
-\definecolor{bgsim}{HTML}{8A5A00}
-\definecolor{bgprop}{HTML}{6B2D8C}
-\definecolor{codebg}{HTML}{F5F6F8}
-\DeclareRobustCommand{\etiq}[2]{\colorbox{#1}{\textcolor{white}{\scriptsize\bfseries\strut #2}}}
-\newcommand{\REAL}{\etiq{bgreal}{EVIDENCIA REAL}}
-\newcommand{\SINT}{\etiq{bgsint}{PCAP SINTÉTICA}}
-\newcommand{\SIM}{\etiq{bgsim}{ESCENARIO SIMULADO}}
-\newcommand{\PROP}{\etiq{bgprop}{REGLA PROPUESTA}}
-\newcommand{\ANA}{\etiq{bgreal}{ANÁLISIS REPRODUCIDO}}
 
 % ---------- títulos
 \titleformat{\chapter}[display]{\bfseries\Large}{\chaptertitlename\ \thechapter}{8pt}{\Huge}
@@ -68,15 +60,15 @@ literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{
 % ficha de registro: tabla de dos columnas
 \newenvironment{ficha}[1]{\begin{table}[H]\centering\caption{#1}\small\renewcommand{\arraystretch}{1.15}\begin{tabular}{@{}>{\bfseries}p{3.3cm}>{\raggedright\arraybackslash}p{\dimexpr\linewidth-3.3cm-2\tabcolsep\relax}@{}}\toprule\textbf{Campo}&\textbf{Registro}\\\midrule}{\bottomrule\end{tabular}\end{table}}
 
-\AtBeginDocument{\addtocontents{lof}{\protect\renewcommand{\protect\etiq}[2]{}}}
 \addto\captionsspanish{\renewcommand{\bibname}{Referencias}}
 \begin{document}
+\includepdf[pages=1]{fig/portada-usuario.pdf}
 \pagenumbering{roman}
+\setcounter{page}{1}
 \input{secciones/portada}
 \tableofcontents
 \listoffigures
 \listoftables
-\input{secciones/abreviaturas}
 \cleardoublepage
 \pagenumbering{arabic}
 \input{secciones/cap1}

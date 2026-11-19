@@ -71,22 +71,22 @@ El script \cod{tests/e2e\_navegador.py} levanta el servidor y recorre el flujo e
 \begin{figure}[H]\centering
 \includegraphics[height=8.6cm]{fig/01-registro-codigo.png}\hspace{0.6cm}
 \includegraphics[height=8.6cm]{fig/02-dispositivo-apagado.png}
-\caption{\REAL\ Registro por número con código (izquierda; en modo demostración el código se muestra en pantalla porque el SMS es simulado) y estado inicial del titular: la ubicación no se comparte (derecha).}\end{figure}
-\fig[0.8]{03-observador-pendiente.png}{\REAL\ El observador pidió permiso: la solicitud queda pendiente y no hay botón de mapa.}
+\caption{Registro por número con código (izquierda; en modo demostración el código se muestra en pantalla porque el SMS es simulado) y estado inicial del titular: la ubicación no se comparte (derecha).}\end{figure}
+\fig[0.8]{03-observador-pendiente.png}{El observador pidió permiso: la solicitud queda pendiente y no hay botón de mapa.}
 \begin{figure}[H]\centering
 \includegraphics[height=10cm]{fig/04-solicitud-recibida.png}\hspace{0.6cm}
 \includegraphics[height=10cm]{fig/05-dispositivo-compartiendo.png}
-\caption{\REAL\ El titular recibe la solicitud con el mensaje del observador y elige duración e historial (izquierda). Tras aprobar 7 días con historial y activar el uso compartido, el aviso cambia y el registro de actividad anota cada paso (derecha).}\end{figure}
-\fig[0.8]{06-mapa-historial.png}{\REAL\ El observador autorizado ve la última posición, el recorrido y la distancia recorrida.}
-\fig[0.8]{07-zona-alerta.png}{\REAL\ Zona ``Casa'' de 300~m y alerta de salida cuando el titular envía una posición a unos 4,6~km.}
+\caption{El titular recibe la solicitud con el mensaje del observador y elige duración e historial (izquierda). Tras aprobar 7 días con historial y activar el uso compartido, el aviso cambia y el registro de actividad anota cada paso (derecha).}\end{figure}
+\fig[0.8]{06-mapa-historial.png}{El observador autorizado ve la última posición, el recorrido y la distancia recorrida.}
+\fig[0.8]{07-zona-alerta.png}{Zona ``Casa'' de 300~m y alerta de salida cuando el titular envía una posición a unos 4,6~km.}
 \begin{figure}[H]\centering
 \includegraphics[height=10cm]{fig/08-dueno-registro.png}
-\caption{\REAL\ El titular ve quién consultó su ubicación y cuándo, y puede revocar.}\end{figure}
-\fig[0.8]{09-acceso-revocado.png}{\REAL\ Tras la revocación, el observador pierde el acceso en la siguiente petición.}
+\caption{El titular ve quién consultó su ubicación y cuándo, y puede revocar.}\end{figure}
+\fig[0.8]{09-acceso-revocado.png}{Tras la revocación, el observador pierde el acceso en la siguiente petición.}
 
 La prueba encontró un fallo real de la interfaz: dos refrescos del mapa en paralelo dibujaban el marcador dos veces. Se corrigió con un contador de secuencia que descarta las respuestas viejas.
 
-\fig[0.98]{term-p2-tests.png}{\ANA\ Las 61 pruebas automáticas de la API: autenticación, consentimiento, ubicaciones, geocercas, retención y borrado.}
+\fig[0.98]{term-p2-tests.png}{Las 61 pruebas automáticas de la API: autenticación, consentimiento, ubicaciones, geocercas, retención y borrado.}
 
 \section{Cobertura de requisitos}
 \begin{table}[H]\centering\small\caption{Requisitos de la guía y estado.}

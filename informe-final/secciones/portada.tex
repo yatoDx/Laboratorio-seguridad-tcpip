@@ -1,56 +1,16 @@
-\begin{titlepage}
-\centering
-\vspace*{0.4cm}
-\includegraphics[width=3.2cm]{fig/logo-ud.png}\par\vspace{0.8cm}
-{\Large Universidad Distrital Francisco José de Caldas\par}\vspace{0.3cm}
-{\large Facultad de Ingeniería\par Ingeniería de Sistemas\par}
-\vspace{1.4cm}
-{\LARGE Mecanismos de seguridad para redes IEEE 802.3\par con servidores TCP/IP\par}
-\vspace{0.8cm}
-{\large Guía–Taller No.~2 \,·\, Informe técnico\par}
-\vspace{0.6cm}
-{\normalsize Laboratorio aislado, diez casos de análisis con evidencia reproducible\par y un sistema de localización basado en consentimiento\par}
-\vspace{1.2cm}
-\begin{tabular}{r@{\quad}l}
-\textbf{Docente:} & Octavio José Salcedo Parra\\
-\textbf{Asignatura:} & Mecanismos de Seguridad\\
-\textbf{Asignación:} & 26 de octubre de 2026\\
-\textbf{Fecha del informe:} & 18 de noviembre de 2026\\
-\textbf{Versión:} & 1
-\end{tabular}
-\par\vspace{1.4cm}
-{\itshape Presentado por:\par}\vspace{0.5cm}
-{\large Juan Esteban Buitrago Chavez \quad — \quad Código 20211020005\par}
-\vspace{1.2cm}
-{\small (laboratorio académico, aislado y autorizado)\par}
-\vfill
-{\small Repositorio: \url{https://github.com/yatoDx/Laboratorio-seguridad-tcpip}\par}
-\end{titlepage}
-
 \chapter*{Declaración}
 \thispagestyle{plain}
-Yo, Juan Esteban Buitrago Chavez (código 20211020005), estudiante de Ingeniería de Sistemas de la Universidad Distrital Francisco José de Caldas, confirmo que el trabajo aquí presentado es propio y que las figuras, tablas, fragmentos de código e ilustraciones son originales o, cuando proceden de terceros, se reconocen y referencian explícitamente.
-
-El laboratorio se realizó conforme a las reglas de la guía: de forma académica, aislada y autorizada, sobre máquinas virtuales propias en la red privada 192.168.50.0/24 sin salida a Internet. No se generó tráfico de ataque contra ningún sistema: las capturas de ataque son PCAP sintéticas escritas a archivo por scripts propios, los escenarios simulados se señalan como tales y la evidencia real proviene del propio laboratorio. En la Parte II, el tratamiento de la ubicación se limita a información que su titular decide compartir, con permiso expreso, temporal y revocable.
-
-Las cifras del informe se obtuvieron ejecutando los scripts del repositorio sobre la evidencia conservada; donde un resultado depende de un supuesto, el supuesto se declara.
-
-\vspace{1.5cm}
-\begin{flushright}
-Juan Esteban Buitrago Chavez — Código 20211020005\\
-Ingeniería de Sistemas, Universidad Distrital Francisco José de Caldas\\[6pt]
-18 de noviembre de 2026
-\end{flushright}
+Las pruebas de este trabajo se realizaron desde un dispositivo propio, en un entorno de laboratorio aislado. No se afectó ni se atacó a ningún tercero ni a ningún sistema ajeno.
 
 \chapter*{Resumen}
 \thispagestyle{plain}
 Este informe desarrolla la Guía–Taller No.~2 de mecanismos de seguridad para redes IEEE~802.3 con servicios TCP/IP. Primero se monta y verifica un laboratorio aislado de cuatro máquinas virtuales Ubuntu Server 24.04.5 LTS (gateway con NTP y firewall nftables, servidor web nginx, DNS dnsmasq y mensajería XMPP Prosody) y un equipo analista Windows con Wireshark, todos en la red 192.168.50.0/24 y con relojes sincronizados.
 
-La Parte~I analiza diez casos críticos: inundación TCP SYN, túnel DNS, exposición de servicios, detección de anomalías con aprendizaje automático, resets TCP, reflexión UDP, ICMP atípico, escaneo de puertos, correlación de alertas al estilo SIEM y seguridad de XMPP sobre TLS. Conforme a las reglas, la evidencia se clasifica siempre como \emph{real} (capturas, logs y salidas del laboratorio), \emph{PCAP sintética} (generada a archivo con scripts propios) o \emph{escenario simulado}. Cada caso tiene su ficha de nueve campos, su evidencia con huella SHA-256, una regla de detección o mitigación propuesta y preguntas de análisis. Para este informe se re-ejecutaron los analizadores sobre las mismas capturas y produjeron salidas idénticas byte a byte a las registradas, y el paquete de entrega verifica 242 archivos por copia contra su manifiesto.
+La Parte~I analiza diez casos críticos: inundación TCP SYN, túnel DNS, exposición de servicios, detección de anomalías con aprendizaje automático, resets TCP, reflexión UDP, ICMP atípico, escaneo de puertos, correlación de alertas al estilo SIEM y seguridad de XMPP sobre TLS. Cada caso tiene su ficha de nueve campos, su evidencia con huella SHA-256, una regla de detección o mitigación y preguntas de análisis. Para este informe se re-ejecutaron los analizadores sobre las mismas capturas y produjeron salidas idénticas byte a byte a las registradas, y el paquete de entrega verifica 242 archivos por copia contra su manifiesto.
 
 La Parte~II implementa un sistema de localización basado en consentimiento: una aplicación web (PWA) con API REST en FastAPI, registro por número telefónico con código de verificación, mapa Leaflet/OpenStreetMap, historial, estadísticas y geocercas. El diseño parte del riesgo de que un localizador se use para acechar: el uso compartido nace apagado, cada observador necesita aprobación expresa con vencimiento, el titular puede revocar al instante y ve quién consultó. La API pasa 61 pruebas automáticas y el flujo completo se probó en Chrome con dos personas.
 
 Los resultados muestran que un indicador aislado no confirma un ataque, que medir sobre la evidencia corrige supuestos (por ejemplo, que 25 SYN no son 25 puertos distintos) y que el aprendizaje automático sirve para priorizar la revisión humana, no para decidir bloqueos.
 
 \vspace{0.6cm}
-\noindent\textbf{Palabras clave:} seguridad de redes, IEEE 802.3, TCP/IP, Wireshark, análisis de PCAP, nftables, detección de anomalías, aprendizaje automático, SIEM, TLS, XMPP, privacidad, consentimiento.
+\noindent\textbf{Index Terms}---seguridad de redes, IEEE 802.3, TCP/IP, Wireshark, análisis de PCAP, nftables, detección de anomalías, aprendizaje automático, SIEM, TLS, XMPP, privacidad, consentimiento.

@@ -2,20 +2,20 @@
 Huellas SHA-256 de las capturas, calculadas sobre la rama \cod{main} (commit \cod{bdd8fd6}). Los archivos binarios no dependen de los saltos de línea; para los de texto la referencia es el manifiesto \cod{entrega-parte-i/manifiesto-sha256.json} (SHA-256 \cod{a20e963a47a0ba57\-aff35b1d71616e77\-dfbb8e5032fbae7e\-6f90c897d66af66c}), que cubre 242 archivos por copia y registra las cuatro enmiendas de saltos de línea.
 
 {\small\renewcommand{\arraystretch}{1.2}
-\begin{longtable}{@{}p{4.6cm}p{2cm}p{4.4cm}p{2.9cm}@{}}
+\begin{longtable}{@{}p{5cm}p{5.6cm}p{3cm}@{}}
 \caption{Capturas de la entrega y su huella SHA-256.}\\\toprule
-\textbf{Archivo} & \textbf{Tipo} & \textbf{Contenido} & \textbf{SHA-256}\\\midrule\endfirsthead
-\toprule\textbf{Archivo} & \textbf{Tipo} & \textbf{Contenido} & \textbf{SHA-256}\\\midrule\endhead
-{\ttfamily\scriptsize baseline-normal.pcapng} & Real & Línea base real original (1.639 paquetes) & \cod{\scriptsize 301ea4766c642919\newline 734e3649b1de4c04\newline 9bb4bebeb8ff9b41\newline 25306322b3b076ff}\\
-{\ttfamily\scriptsize baseline-normal-limpia.pcapng} & Real (derivada) & Línea base filtrada al laboratorio (720) & \cod{\scriptsize 6fbe5c7939dfcc5c\newline f254f1bb88d9081e\newline de6ee287e0f91933\newline dbdf602bb66b4427}\\
-{\ttfamily\scriptsize caso01-synflood-ratelimit.pcap} & Sintética & Caso 1, modelo token bucket & \cod{\scriptsize 89875054c5728a4f\newline 5f84e352588a2ca6\newline c1a5e0c17f12c0d5\newline eac753164897865c}\\
-{\ttfamily\scriptsize caso01-synflood.pcap} & Sintética & Caso 1, ráfaga SYN & \cod{\scriptsize cdb0035700ebd5db\newline 641e0908a15331ce\newline ae72148ed3604daa\newline 27f9b7496518de27}\\
-{\ttfamily\scriptsize caso02-dns-tunneling.pcap} & Sintética & Caso 2, consultas DNS & \cod{\scriptsize 4432598be91337ab\newline 04e6749604bfa9a2\newline f16266ae3b264bd3\newline 66d825c185da4988}\\
-{\ttfamily\scriptsize caso05-rst.pcap} & Sintética & Caso 5, RST & \cod{\scriptsize abea3dec5ae31d8f\newline 2f9fa49c6188a8ed\newline 1b0b1bdcedeb1420\newline bfdc422736fb621a}\\
-{\ttfamily\scriptsize caso06-reflexion-udp.pcap} & Sintética & Caso 6, reflexión UDP & \cod{\scriptsize 512bd19bacdcad6d\newline eb19956e7456fd6d\newline 0041713156f14fb2\newline 983d664325822862}\\
-{\ttfamily\scriptsize caso07-icmp.pcap} & Sintética & Caso 7, ICMP & \cod{\scriptsize 1a2fb2b2291ea1cd\newline 7a87b370ca33053b\newline 0693b8526c6c77d0\newline 890a9dbab13a41ac}\\
-{\ttfamily\scriptsize caso08-portscan.pcap} & Sintética & Caso 8, escaneo & \cod{\scriptsize 322d148fe355df3f\newline 13d16b9749cc34e0\newline 58f8a35b2468a010\newline f5eb305a70e7f313}\\
-{\ttfamily\scriptsize caso10-xmpp-tls.pcapng} & Real & Caso 10, XMPP/TLS (real) & \cod{\scriptsize 2206664fd9c48ebd\newline 25af51d6407fc2e3\newline 497defde81a66b2f\newline 0e5163214a6e51fa}\\
+\textbf{Archivo} & \textbf{Contenido} & \textbf{SHA-256}\\\midrule\endfirsthead
+\toprule\textbf{Archivo} & \textbf{Contenido} & \textbf{SHA-256}\\\midrule\endhead
+{\ttfamily\scriptsize baseline-normal.pcapng} & Línea base real original (1.639 paquetes) & \cod{\scriptsize 301ea4766c642919\newline 734e3649b1de4c04\newline 9bb4bebeb8ff9b41\newline 25306322b3b076ff}\\
+{\ttfamily\scriptsize baseline-normal-limpia.pcapng} & Línea base filtrada al laboratorio (720) & \cod{\scriptsize 6fbe5c7939dfcc5c\newline f254f1bb88d9081e\newline de6ee287e0f91933\newline dbdf602bb66b4427}\\
+{\ttfamily\scriptsize caso01-synflood-ratelimit.pcap} & Caso 1, modelo token bucket & \cod{\scriptsize 89875054c5728a4f\newline 5f84e352588a2ca6\newline c1a5e0c17f12c0d5\newline eac753164897865c}\\
+{\ttfamily\scriptsize caso01-synflood.pcap} & Caso 1, ráfaga SYN & \cod{\scriptsize cdb0035700ebd5db\newline 641e0908a15331ce\newline ae72148ed3604daa\newline 27f9b7496518de27}\\
+{\ttfamily\scriptsize caso02-dns-tunneling.pcap} & Caso 2, consultas DNS & \cod{\scriptsize 4432598be91337ab\newline 04e6749604bfa9a2\newline f16266ae3b264bd3\newline 66d825c185da4988}\\
+{\ttfamily\scriptsize caso05-rst.pcap} & Caso 5, RST & \cod{\scriptsize abea3dec5ae31d8f\newline 2f9fa49c6188a8ed\newline 1b0b1bdcedeb1420\newline bfdc422736fb621a}\\
+{\ttfamily\scriptsize caso06-reflexion-udp.pcap} & Caso 6, reflexión UDP & \cod{\scriptsize 512bd19bacdcad6d\newline eb19956e7456fd6d\newline 0041713156f14fb2\newline 983d664325822862}\\
+{\ttfamily\scriptsize caso07-icmp.pcap} & Caso 7, ICMP & \cod{\scriptsize 1a2fb2b2291ea1cd\newline 7a87b370ca33053b\newline 0693b8526c6c77d0\newline 890a9dbab13a41ac}\\
+{\ttfamily\scriptsize caso08-portscan.pcap} & Caso 8, escaneo & \cod{\scriptsize 322d148fe355df3f\newline 13d16b9749cc34e0\newline 58f8a35b2468a010\newline f5eb305a70e7f313}\\
+{\ttfamily\scriptsize caso10-xmpp-tls.pcapng} & Caso 10, XMPP/TLS (real) & \cod{\scriptsize 2206664fd9c48ebd\newline 25af51d6407fc2e3\newline 497defde81a66b2f\newline 0e5163214a6e51fa}\\
 \bottomrule
 \end{longtable}}
 

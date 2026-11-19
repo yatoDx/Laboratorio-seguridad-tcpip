@@ -73,21 +73,19 @@ La correlación entre fuentes exige relojes coherentes. El gateway sirve hora co
 \section{Verificación del laboratorio}
 Se ejecutó \cod{verificar\_laboratorio.sh <rol>} en cada VM, antes y después de retirar el NAT, y \cod{verificar\_laboratorio.ps1 -Rol analista} en el anfitrión: 11 comprobaciones correctas, ninguna faltante y una advertencia (Wireshark instalado pero fuera del PATH, luego corregida en el script). Estas comprobaciones verifican conectividad y servicios; no son una auditoría integral de seguridad. El ping sin respuesta a 192.0.2.1 (TEST-NET) es un indicio auxiliar de aislamiento, no una prueba por sí solo; la prueba es la ausencia del adaptador NAT y de ruta por defecto.
 
-\fig[0.62]{gateway-aislado-crop.png}{\REAL\ Gateway tras el retiro del NAT: solo \texttt{lo} y \texttt{enp0s8}, una única ruta a 192.168.50.0/24 y el ruleset nftables cargado.}
-\begin{figure}[H]\centering\includegraphics[width=0.58\linewidth]{fig/gateway-firewall-crop.png}\caption{\REAL\ Ruleset del gateway con \texttt{policy drop} e \texttt{ip\_forward = 0}.}\label{fig:gwfw}\end{figure}
-\fig[0.95]{web-nginx-crop.png}{\REAL\ Servidor web: nginx activo y respuesta \texttt{HTTP/1.1 200 OK} (captura tomada durante el montaje, todavía con el adaptador NAT \texttt{enp0s3}).}
-\fig[0.95]{dns-resolucion-crop.png}{\REAL\ DNS: \texttt{web.lab.local} resuelve a 192.168.50.20 en dnsmasq (captura del montaje, con NAT aún presente).}
-\fig[0.95]{xmpp-prosody-crop.png}{\REAL\ XMPP: Prosody activo y escuchando en 5222 (IPv4 e IPv6).}
-\fig[0.62]{web-ntp-crop.png}{\REAL\ Cliente NTP: la VM web sincroniza contra el gateway (\texttt{\^{}* 192.168.50.1}, \texttt{Reference ID C0A83201}).}
+\fig[0.62]{gateway-aislado-crop.png}{Gateway tras el retiro del NAT: solo \texttt{lo} y \texttt{enp0s8}, una única ruta a 192.168.50.0/24 y el ruleset nftables cargado.}
+\begin{figure}[H]\centering\includegraphics[width=0.58\linewidth]{fig/gateway-firewall-crop.png}\caption{Ruleset del gateway con \texttt{policy drop} e \texttt{ip\_forward = 0}.}\label{fig:gwfw}\end{figure}
+\fig[0.95]{web-nginx-crop.png}{Servidor web: nginx activo y respuesta \texttt{HTTP/1.1 200 OK} (captura tomada durante el montaje, todavía con el adaptador NAT \texttt{enp0s3}).}
+\fig[0.95]{dns-resolucion-crop.png}{DNS: \texttt{web.lab.local} resuelve a 192.168.50.20 en dnsmasq (captura del montaje, con NAT aún presente).}
+\fig[0.95]{xmpp-prosody-crop.png}{XMPP: Prosody activo y escuchando en 5222 (IPv4 e IPv6).}
+\fig[0.62]{web-ntp-crop.png}{Cliente NTP: la VM web sincroniza contra el gateway (\texttt{\^{}* 192.168.50.1}, \texttt{Reference ID C0A83201}).}
 \begin{figure}[H]\centering
 \includegraphics[width=0.48\linewidth]{fig/host-w32tm-crop.png}\hfill
 \includegraphics[width=0.48\linewidth]{fig/host-verificacion-analista-crop.png}
-\caption{\REAL\ Analista Windows: w32time con origen 192.168.50.1 (izquierda) y verificación del rol analista con 11 OK, 0 FALTA y 1 advertencia (derecha).}\end{figure}
-\fig{host-wireshark.png}{\REAL\ Captura en vivo en Wireshark sobre el adaptador \emph{Ethernet 2}: tráfico ICMP, TCP/HTTP, DNS y ARP del propio laboratorio.}
+\caption{Analista Windows: w32time con origen 192.168.50.1 (izquierda) y verificación del rol analista con 11 OK, 0 FALTA y 1 advertencia (derecha).}\end{figure}
+\fig{host-wireshark.png}{Captura en vivo en Wireshark sobre el adaptador \emph{Ethernet 2}: tráfico ICMP, TCP/HTTP, DNS y ARP del propio laboratorio.}
 
 \section{Método de evidencia y reproducibilidad}\label{sec:metodo-evidencia}
-\paragraph{Clasificación.} Cada evidencia lleva una etiqueta: \REAL\ para capturas, logs y salidas de comandos del laboratorio; \SINT\ para capturas generadas a archivo con los scripts \cod{gen\_caso*.py} (nunca transmitidas); \SIM\ para telemetría didáctica, y \PROP\ para reglas validadas sintácticamente pero no aplicadas. \ANA\ marca salidas obtenidas re-ejecutando los scripts para este informe.
-
 \paragraph{Integridad.} Cada archivo se registra con SHA-256 (además de SHA-1 y MD5 por compatibilidad) en \cod{evidencia.log} con \cod{hash\_evidencia.py}. Al cerrar la Parte~I, \cod{scripts/cerrar\_parte\_i.py} copió 242 archivos a dos copias, \cod{original} y \cod{trabajo}, y generó un manifiesto JSON con ruta, tamaño y SHA-256 de cada uno, más la huella del propio manifiesto. La verificación recalcula todo y falla si un solo byte cambia.
 
 \paragraph{Saltos de línea.} Git convirtió CRLF a LF los archivos de texto confirmados desde Windows, de modo que el manifiesto no verificaba en un clon. Se añadió \cod{.gitattributes} para guardar la evidencia byte a byte y \cod{scripts/reparar\_evidencia.py} restauró los CRLF originales. Cuatro archivos con saltos mixtos (\cod{caso03-auth-events}, \cod{caso03-ss-tulpn}, \cod{caso05-logs-correlacion} y \cod{caso06-openresolver}) no se podían reproducir; el manifiesto los registra en una lista de \emph{enmiendas} con su huella original, la actual y el motivo. Desde el commit \cod{02257d9} la verificación pasa en un clon limpio (Figura~\ref{fig:integridad}).
@@ -95,11 +93,11 @@ Se ejecutó \cod{verificar\_laboratorio.sh <rol>} en cada VM, antes y después d
 \paragraph{Reproducción.} Para este informe se clonó \cod{main} y se re-ejecutaron los analizadores sobre las mismas PCAP: las salidas de los casos 1, 2, 5, 6, 7 y 8 son idénticas byte a byte a las conservadas y las métricas del Caso~4 coinciden. Las capturas de terminal del capítulo~\ref{cap:parte1} provienen de esa re-ejecución.
 
 \begin{figure}[H]\centering\includegraphics[width=\linewidth]{fig/term-integridad.png}
-\caption{\ANA\ Verificación del manifiesto (242 archivos por copia) y ejecución de las pruebas de la Parte I (34) y la Parte II (61) en un clon limpio.}\label{fig:integridad}\end{figure}
+\caption{Verificación del manifiesto (242 archivos por copia) y ejecución de las pruebas de la Parte I (34) y la Parte II (61) en un clon limpio.}\label{fig:integridad}\end{figure}
 
 \paragraph{Línea base.} \cod{baseline-normal.pcapng} (1.639 paquetes, 296,67~s) es tráfico real capturado en el analista, pero incluye ruido del propio Windows: consultas DNS a dominios externos, mDNS, LLMNR y NBNS. Se generó \cod{baseline-normal-limpia.pcapng} (720 paquetes, 293,26~s) conservando solo IPv4 dentro de 192.168.50.0/24 sin esos protocolos. La original se mantiene porque los casos cerrados verifican su huella; los casos 1, 4 y 7 se repitieron sobre la limpia (capítulo~\ref{cap:discusion}).
 
-\fig{term-baseline.png}{\REAL\ Líneas base original y limpia: número de paquetes, duración y SHA-256.}
+\fig{term-baseline.png}{Líneas base original y limpia: número de paquetes, duración y SHA-256.}
 
 \section{Formato mínimo de registro por hallazgo}
 Cada caso se documenta con una ficha de nueve campos. Como no se dispuso del apartado literal de la plantilla de la guía, se adoptó la estructura de la Tabla~\ref{tab:formato} y se declara como propuesta.
@@ -113,7 +111,7 @@ Fecha y analista & Fecha de ejecución y zona horaria; las marcas UTC se convier
 Categoría & Tipo de amenaza o técnica y si es estudio, simulación o incidente\\
 Descripción & Qué se observó, con origen, destino y volúmenes\\
 Severidad & Potencial y efectiva, separadas; criterio de impacto\\
-Evidencias & Archivos con su tipo (real, sintética, simulada) y su huella en el manifiesto\\
+Evidencias & Archivos con su huella en el manifiesto\\
 Observables & Valores medidos que sostienen el hallazgo y el filtro usado\\
 Estado & Qué queda confirmado y qué no; acciones pendientes\\
 \bottomrule\end{tabularx}\end{table}

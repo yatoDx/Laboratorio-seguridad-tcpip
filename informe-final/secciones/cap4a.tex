@@ -1,7 +1,5 @@
 %======================================================================
 \section{Caso 1 — TCP SYN flood: agotamiento de conexiones}
-\SINT\ \REAL\ \PROP\ \ANA
-
 Un atacante que envía muchos SYN sin completar el saludo obliga al servidor a reservar estado para conexiones que nunca terminan. El caso modela una ráfaga contra el servidor web y el efecto de un limitador de tasa, y la compara con el tráfico HTTP real de la línea base.
 
 \begin{ficha}{Ficha del Caso 1 — SYN flood.}
@@ -19,15 +17,15 @@ Estado & Patrón sintético confirmado; ataque real y eficacia de la mitigación
 \subsection{Procedimiento y evidencia}
 \cod{gen\_caso01\_synflood.py} escribe ambas capturas y \cod{analizar\_caso01.py} las lee con \cod{tshark}. El analizador clasifica cada segmento en categorías excluyentes (RST, SYN-ACK, SYN, FIN, ACK restante) porque contar paquetes con bandera ACK mezclaría los SYN-ACK y los datos con el tercer paso del saludo. El handshake se correlaciona por \emph{stream}, 4-tupla, secuencia y reconocimiento \emph{raw}, orden temporal y un plazo de 10~s, descartando retransmisiones. Las tasas se calculan en ventanas de 1~s desde el inicio de la captura, incluidos los silencios.
 
-\fig[0.98]{term-c01-tshark.png}{\ANA\ \SINT\ Primeros SYN del origen 192.168.50.100 hacia .20:80 en la captura sintética: puertos de origen consecutivos y ningún ACK posterior.}
-\fig[0.98]{term-c01.png}{\ANA\ Salida de \texttt{analizar\_caso01.py}: categorías, handshakes correlacionados y comparación con la línea base real (0 SYN en 296,67~s).}
-\fig{caso01-wireshark-final.png}{\SINT\ La captura sintética abierta en Wireshark por el grupo: ráfaga de SYN desde .100 y los SYN-ACK del servidor modelado.}
+\fig[0.98]{term-c01-tshark.png}{Primeros SYN del origen 192.168.50.100 hacia .20:80 en la captura sintética: puertos de origen consecutivos y ningún ACK posterior.}
+\fig[0.98]{term-c01.png}{Salida de \texttt{analizar\_caso01.py}: categorías, handshakes correlacionados y comparación con la línea base real (0 SYN en 296,67~s).}
+\fig{caso01-wireshark-final.png}{La captura sintética abierta en Wireshark por el grupo: ráfaga de SYN desde .100 y los SYN-ACK del servidor modelado.}
 \fig[0.8]{caso01-syn-rate.png}{Arriba, SYN por ventana de 1~s en el modelo sin filtro y con token bucket: con ráfaga 20 el limitador deja pasar 20 en la primera ventana, así que 10/s no es un techo estricto por ventana aislada. Abajo, la línea base real de HTTP en .20: ningún SYN.}
 
 La línea base real filtrada a HTTP de .20 tiene 57 segmentos TCP, 0 SYN y 0 handshakes: la captura empezó con sesiones ya abiertas. Eso no significa que no haya HTTP normal ni permite fijar un umbral de ``establecimientos normales''. La media de toda la captura sintética (9,67 SYN/s en 21~s) tampoco es la tasa de la ráfaga; hay que mirar las ventanas.
 
-\subsection{Regla propuesta}
-\PROP\ Tabla independiente para el host web .20, con política \emph{accept}, que solo descarta el exceso de SYN HTTP:
+\subsection{Regla de detección y mitigación}
+Tabla independiente para el host web .20, con política \emph{accept}, que solo descarta el exceso de SYN HTTP:
 \begin{lstlisting}
 table inet caso01_syn {
   chain input {
@@ -53,8 +51,6 @@ La palabra \cod{over} es esencial: sin ella la regla descartaría el tráfico \e
 
 %======================================================================
 \section{Caso 2 — DNS tunneling: salida encubierta por UDP/53}
-\SINT\ \REAL\ \ANA
-
 Un túnel DNS codifica datos en las etiquetas de los nombres consultados. El caso evalúa una heurística sencilla —longitud y entropía de Shannon de la etiqueta más larga— sobre consultas legítimas y artificiales.
 
 \begin{ficha}{Ficha del Caso 2 — DNS tunneling.}
@@ -74,14 +70,14 @@ El analizador filtra consultas (\cod{dns.flags.response == 0}), normaliza el nom
 \[ H = -\sum_{c} p(c)\,\log_2 p(c), \]
 donde $p(c)$ es la frecuencia relativa de cada carácter. En hexadecimal $H$ no puede pasar de 4 bits. La regla propuesta es \emph{longitud $>$ 30 o $H >$ 3,5}.
 
-\fig[0.98]{term-c02-tshark.png}{\ANA\ \SINT\ Consultas del PCAP: nombres legibles del laboratorio seguidos de la tanda de etiquetas hexadecimales bajo \texttt{exfil.lab.local}.}
-\fig[0.98]{term-c02.png}{\ANA\ Salida de \texttt{analizar\_caso02.py}: agrupación por origen y sufijo, 21 de 25 nombres artificiales marcados y 0 de 12 legibles, y la consulta real del log de dnsmasq.}
-\fig{caso02-wireshark-final.png}{\SINT\ Las consultas sintéticas en Wireshark.}
+\fig[0.98]{term-c02-tshark.png}{Consultas del PCAP: nombres legibles del laboratorio seguidos de la tanda de etiquetas hexadecimales bajo \texttt{exfil.lab.local}.}
+\fig[0.98]{term-c02.png}{Salida de \texttt{analizar\_caso02.py}: agrupación por origen y sufijo, 21 de 25 nombres artificiales marcados y 0 de 12 legibles, y la consulta real del log de dnsmasq.}
+\fig{caso02-wireshark-final.png}{Las consultas sintéticas en Wireshark.}
 \fig[0.75]{caso02-dns-entropy.png}{Longitud frente a entropía de la etiqueta más larga: los nombres legibles quedan abajo a la izquierda; cuatro artificiales cortos no superan ningún umbral.}
 
 La regla marca 21 de 25 nombres artificiales y ninguno legible: no separa perfectamente. Los cuatro que no marca son etiquetas cortas cuya entropía queda bajo 3,5; no por eso son benignos. El log real de dnsmasq conserva una consulta demostrativa (etiqueta de 52 caracteres, $H$ = 3,724) hecha desde .53, no desde .10: coincide en el nombre pero no hay correspondencia de tiempos ni transacciones con la tanda sintética, y la respuesta fue REFUSED. No prueba ningún canal.
 
-\subsection{Reglas propuestas}
+\subsection{Reglas de detección y mitigación}
 La detección se implementa en Python, no como firma de IDS: se retiró una pseudofirma con \cod{byte\_test} sobre \cod{dns.query} porque ese búfer contiene el nombre ya normalizado, sin los octetos de longitud del formato de red. Para un IDS se propone, como señal de revisión y no de bloqueo:
 \begin{itemize}
 \item contar por cliente y dominio base las consultas con etiqueta $>$ 30 caracteres o $H >$ 3,5 en ventanas de 60~s, y alertar por volumen sostenido;
@@ -102,8 +98,6 @@ La detección se implementa en Python, no como firma de IDS: se retiró una pseu
 
 %======================================================================
 \section{Caso 3 — Exposición de servicios HTTP, FTP y heredados}
-\REAL\ \ANA
-
 Cada servicio en escucha es una puerta posible. El caso levanta el inventario real de sockets de las cuatro VMs y del anfitrión y valora su riesgo.
 
 \begin{ficha}{Ficha del Caso 3 — Servicios expuestos.}
@@ -131,8 +125,8 @@ anfitrión & TCP 5432 en todas & PID 6404; proceso no atribuido\\
 \bottomrule\end{tabularx}\end{table}
 
 \subsection{Procedimiento y evidencia}
-\fig[0.98]{term-c03.png}{\ANA\ Salida de \texttt{analizar\_caso03.py}: sockets del anfitrión con su PID y conteo de eventos de autenticación.}
-\fig{caso03-netstat-consola.png}{\REAL\ Consola del analista con el inventario original (el rótulo heredado ``Conexiones establecidas'' no filtra por estado: incluye LISTENING y TIME\_WAIT).}
+\fig[0.98]{term-c03.png}{Salida de \texttt{analizar\_caso03.py}: sockets del anfitrión con su PID y conteo de eventos de autenticación.}
+\fig{caso03-netstat-consola.png}{Consola del analista con el inventario original (el rótulo heredado ``Conexiones establecidas'' no filtra por estado: incluye LISTENING y TIME\_WAIT).}
 \fig[0.8]{caso03-riesgo.png}{Valoración cualitativa propuesta de impacto y probabilidad por servicio; no es un riesgo medido.}
 
 Que un puerto escuche no prueba que sea alcanzable desde otro equipo: intervienen la ruta, el firewall local y las ACL del servicio. Tampoco se identifica un producto solo por el número de puerto: 445 suele ser SMB y 5432 PostgreSQL, pero el PID registrado no se correlacionó con su proceso en el instante de la captura. Cero \cod{Failed password} en un fragmento no demuestra ausencia de intentos fallidos en todo el periodo.
@@ -153,8 +147,6 @@ Que un puerto escuche no prueba que sea alcanzable desde otro equipo: interviene
 
 %======================================================================
 \section{Caso 4 — Detección de anomalías con IA/ML en tráfico TCP/IP}
-\REAL\ \SIM\ \ANA
-
 El caso evalúa con método dos detectores no supervisados —z-score e Isolation Forest— entrenados con la línea base real y probados con ventanas normales posteriores y con anomalías sintéticas. Una primera versión con 28 ventanas de duración desigual, etiquetas por PCAP y evaluación sobre los mismos datos de entrenamiento se declaró obsoleta y se rehízo.
 
 \begin{ficha}{Ficha del Caso 4 — Anomalías con ML.}
@@ -184,7 +176,7 @@ Prueba sintética & 11 SYN + 11 DNS & Sensibilidad; padres solo de prueba\\
 Cada variante conserva el fondo completo de una ventana de prueba e inserta registros sintéticos entre los segundos 2 y 8, con semilla 42. Son filas de una tabla, no paquetes transmitidos. El z-score alerta si algún atributo no constante supera $|z| > 3$ con media y desviación del entrenamiento; Isolation Forest usa 200 árboles, \cod{contamination=auto} y umbral nativo.
 
 \subsection{Resultado de los detectores}
-\fig[0.98]{term-c04.png}{\ANA\ Salida de \texttt{caso04\_ml.py}: huella de la línea base, particiones y matrices de confusión solo sobre prueba (filas = etiqueta, columnas = predicción).}
+\fig[0.98]{term-c04.png}{Salida de \texttt{caso04\_ml.py}: huella de la línea base, particiones y matrices de confusión solo sobre prueba (filas = etiqueta, columnas = predicción).}
 
 \begin{table}[H]\centering\small\caption{Métricas del Caso 4 sobre prueba.}
 \begin{tabular}{@{}lcccc@{}}\toprule
@@ -198,7 +190,7 @@ Mezcla didáctica (33) & F1 0,978 & 0,091 & F1 0,898 & 0,455\\
 
 \fig[0.9]{caso04-matriz-confusion.png}{Matrices de confusión de ambos detectores sobre el conjunto mixto de prueba.}
 \fig[0.8]{caso04-scatter.png}{Ventanas en dos atributos: las variantes sintéticas se alejan claramente de las normales, lo que explica la detección perfecta y advierte que la tarea es fácil.}
-\fig{caso04-consola-revisada.png}{\REAL\ Ejecución del experimento revisado en el equipo analista.}
+\fig{caso04-consola-revisada.png}{Ejecución del experimento revisado en el equipo analista.}
 
 \subsection{Interpretación y uso responsable}
 Detectar 22 de 22 no prueba capacidad real: las anomalías sintéticas son grandes y comparten fondo con su ventana padre, así que no aumentan el tamaño efectivo de la muestra. Lo informativo son los falsos positivos: Isolation Forest marca casi la mitad de las ventanas normales posteriores, lo que en operación saturaría al analista. Al repetir con la línea base limpia, el falso positivo del z-score desaparece (capítulo~\ref{cap:discusion}). Un modelo así sirve para ordenar qué revisar primero, no para bloquear automáticamente.
@@ -210,8 +202,6 @@ Detectar 22 de 22 no prueba capacidad real: las anomalías sintéticas son grand
 
 %======================================================================
 \section{Caso 5 — TCP: resets inesperados e indicios de inyección}
-\SINT\ \REAL\ \ANA
-
 Un RST con la tupla y la secuencia correctas puede cortar una sesión ajena. El caso distingue RST dentro de sesiones observadas de RST sueltos.
 
 \begin{ficha}{Ficha del Caso 5 — Resets TCP.}
@@ -229,8 +219,8 @@ Estado & Casos sintéticos; ni ataque ni falsificación confirmados\\
 \subsection{Procedimiento y evidencia}
 El analizador filtra \cod{tcp.flags.reset == 1} y para cada RST busca un saludo previo con la misma 4-tupla, usando los números de secuencia \emph{raw} (Wireshark muestra secuencias relativas por defecto).
 
-\fig[0.98]{term-c05.png}{\ANA\ Salida de \texttt{analizar\_caso05.py} y lista de RST con secuencias \emph{raw}: los cuatro de .100 usan tuplas sin sesión previa.}
-\fig{caso05-wireshark-final.png}{\SINT\ Los RST en Wireshark con \texttt{tcp.relative\_sequence\_numbers:FALSE} solo para esa vista.}
+\fig[0.98]{term-c05.png}{Salida de \texttt{analizar\_caso05.py} y lista de RST con secuencias \emph{raw}: los cuatro de .100 usan tuplas sin sesión previa.}
+\fig{caso05-wireshark-final.png}{Los RST en Wireshark con \texttt{tcp.relative\_sequence\_numbers:FALSE} solo para esa vista.}
 
 Los cuatro RST de .100 no comparten la 4-tupla de ninguna sesión: son RST fuera de flujo, no resets efectivos de una conexión ajena. Un RST sin bandera ACK es legal (por ejemplo, respuesta a un segmento hacia un puerto sin sesión), y con ACK apagado el campo ack no tiene significado: \emph{ack = 0} no prueba suplantación. Los logs reales de nginx y Prosody son de otra hora y no se correlacionan con este PCAP generado.
 
