@@ -121,8 +121,8 @@
     },
     {
       "ruta": "evidencia/casos/caso03-auth-events.txt",
-      "bytes": 5223,
-      "sha256": "674228747ed41dd5254e5bfdf7eb203784261122f8276a451ba9ad23d4db3432",
+      "bytes": 5175,
+      "sha256": "1c93adec6070366d4210907e83663ee993c54de906994a97429fb1765c79fb30",
       "estado": "vigente_o_contexto; consultar_ficha"
     },
     {
@@ -145,8 +145,8 @@
     },
     {
       "ruta": "evidencia/casos/caso03-ss-tulpn.txt",
-      "bytes": 5544,
-      "sha256": "ab267d3d56beef4794c9c6a2044cf08607557e02ea6b2977fb88a56f7bb9b59a",
+      "bytes": 5499,
+      "sha256": "bb9849998a0fc84b59cbf7dc27ca15dda7185bc9be6d468cc8de4f7a891cf3d2",
       "estado": "vigente_o_contexto; consultar_ficha"
     },
     {
@@ -253,8 +253,8 @@
     },
     {
       "ruta": "evidencia/casos/caso05-logs-correlacion.txt",
-      "bytes": 4672,
-      "sha256": "4e97654b2af87356985c874d24c2c22e19236c8f303ddcb332ddeebfb8a46a6b",
+      "bytes": 4632,
+      "sha256": "63c674e4cf1acb111c80c96fe1ce3bd8acc4e2866c8ea3f0eb00437da47c8f8d",
       "estado": "vigente_o_contexto; consultar_ficha"
     },
     {
@@ -289,8 +289,8 @@
     },
     {
       "ruta": "evidencia/casos/caso06-openresolver.txt",
-      "bytes": 358,
-      "sha256": "6ed815d78c3cd2c65c0cbb60d24b8bcc9db0a49bf63d79b11201f450a5d22f8c",
+      "bytes": 352,
+      "sha256": "363e434cca5123c292e05d41945c6ccd1db8775d5793b2ea811c1accd1aaf955",
       "estado": "vigente_o_contexto; consultar_ficha"
     },
     {
@@ -667,8 +667,8 @@
     },
     {
       "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso03-auth-events.txt",
-      "bytes": 5223,
-      "sha256": "674228747ed41dd5254e5bfdf7eb203784261122f8276a451ba9ad23d4db3432",
+      "bytes": 5175,
+      "sha256": "1c93adec6070366d4210907e83663ee993c54de906994a97429fb1765c79fb30",
       "estado": "historico_no_vigente"
     },
     {
@@ -691,8 +691,8 @@
     },
     {
       "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso03-ss-tulpn.txt",
-      "bytes": 5544,
-      "sha256": "ab267d3d56beef4794c9c6a2044cf08607557e02ea6b2977fb88a56f7bb9b59a",
+      "bytes": 5499,
+      "sha256": "bb9849998a0fc84b59cbf7dc27ca15dda7185bc9be6d468cc8de4f7a891cf3d2",
       "estado": "historico_no_vigente"
     },
     {
@@ -703,8 +703,8 @@
     },
     {
       "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso05-logs-correlacion.txt",
-      "bytes": 4672,
-      "sha256": "4e97654b2af87356985c874d24c2c22e19236c8f303ddcb332ddeebfb8a46a6b",
+      "bytes": 4632,
+      "sha256": "63c674e4cf1acb111c80c96fe1ce3bd8acc4e2866c8ea3f0eb00437da47c8f8d",
       "estado": "historico_no_vigente"
     },
     {
@@ -727,8 +727,8 @@
     },
     {
       "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso06-openresolver.txt",
-      "bytes": 358,
-      "sha256": "6ed815d78c3cd2c65c0cbb60d24b8bcc9db0a49bf63d79b11201f450a5d22f8c",
+      "bytes": 352,
+      "sha256": "363e434cca5123c292e05d41945c6ccd1db8775d5793b2ea811c1accd1aaf955",
       "estado": "historico_no_vigente"
     },
     {
@@ -1462,6 +1462,72 @@
       "bytes": 116912,
       "sha256": "c3bc367a48d81178b1ef11db4c0503557892df890e96094d50cce256d7d9e500",
       "estado": "registro_de_integridad"
+    }
+  ],
+  "enmiendas": [
+    {
+      "ruta": "evidencia/casos/caso03-auth-events.txt",
+      "sha256_registrado_al_cierre": "674228747ed41dd5254e5bfdf7eb203784261122f8276a451ba9ad23d4db3432",
+      "bytes_registrados": 5223,
+      "sha256_actual": "1c93adec6070366d4210907e83663ee993c54de906994a97429fb1765c79fb30",
+      "bytes_actuales": 5175,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
+    },
+    {
+      "ruta": "evidencia/casos/caso03-ss-tulpn.txt",
+      "sha256_registrado_al_cierre": "ab267d3d56beef4794c9c6a2044cf08607557e02ea6b2977fb88a56f7bb9b59a",
+      "bytes_registrados": 5544,
+      "sha256_actual": "bb9849998a0fc84b59cbf7dc27ca15dda7185bc9be6d468cc8de4f7a891cf3d2",
+      "bytes_actuales": 5499,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
+    },
+    {
+      "ruta": "evidencia/casos/caso05-logs-correlacion.txt",
+      "sha256_registrado_al_cierre": "4e97654b2af87356985c874d24c2c22e19236c8f303ddcb332ddeebfb8a46a6b",
+      "bytes_registrados": 4672,
+      "sha256_actual": "63c674e4cf1acb111c80c96fe1ce3bd8acc4e2866c8ea3f0eb00437da47c8f8d",
+      "bytes_actuales": 4632,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
+    },
+    {
+      "ruta": "evidencia/casos/caso06-openresolver.txt",
+      "sha256_registrado_al_cierre": "6ed815d78c3cd2c65c0cbb60d24b8bcc9db0a49bf63d79b11201f450a5d22f8c",
+      "bytes_registrados": 358,
+      "sha256_actual": "363e434cca5123c292e05d41945c6ccd1db8775d5793b2ea811c1accd1aaf955",
+      "bytes_actuales": 352,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
+    },
+    {
+      "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso03-auth-events.txt",
+      "sha256_registrado_al_cierre": "674228747ed41dd5254e5bfdf7eb203784261122f8276a451ba9ad23d4db3432",
+      "bytes_registrados": 5223,
+      "sha256_actual": "1c93adec6070366d4210907e83663ee993c54de906994a97429fb1765c79fb30",
+      "bytes_actuales": 5175,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
+    },
+    {
+      "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso03-ss-tulpn.txt",
+      "sha256_registrado_al_cierre": "ab267d3d56beef4794c9c6a2044cf08607557e02ea6b2977fb88a56f7bb9b59a",
+      "bytes_registrados": 5544,
+      "sha256_actual": "bb9849998a0fc84b59cbf7dc27ca15dda7185bc9be6d468cc8de4f7a891cf3d2",
+      "bytes_actuales": 5499,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
+    },
+    {
+      "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso05-logs-correlacion.txt",
+      "sha256_registrado_al_cierre": "4e97654b2af87356985c874d24c2c22e19236c8f303ddcb332ddeebfb8a46a6b",
+      "bytes_registrados": 4672,
+      "sha256_actual": "63c674e4cf1acb111c80c96fe1ce3bd8acc4e2866c8ea3f0eb00437da47c8f8d",
+      "bytes_actuales": 4632,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
+    },
+    {
+      "ruta": "evidencia/casos/revision-anterior/evidencia/casos/caso06-openresolver.txt",
+      "sha256_registrado_al_cierre": "6ed815d78c3cd2c65c0cbb60d24b8bcc9db0a49bf63d79b11201f450a5d22f8c",
+      "bytes_registrados": 358,
+      "sha256_actual": "363e434cca5123c292e05d41945c6ccd1db8775d5793b2ea811c1accd1aaf955",
+      "bytes_actuales": 352,
+      "motivo": "Saltos de línea mixtos (CRLF/LF) alterados por Git en Windows; no reproducibles desde el repositorio"
     }
   ]
 }
