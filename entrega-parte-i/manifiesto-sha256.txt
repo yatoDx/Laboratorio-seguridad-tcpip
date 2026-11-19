@@ -1,0 +1,1 @@
+fdea3990d368713f0db606beddbf8a36ede3ac2f0eac717b66f933744409b0a5  manifiesto-sha256.json
