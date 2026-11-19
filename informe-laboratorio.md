@@ -269,8 +269,11 @@ el mismo bloque a `evidencia.log`, sin borrar registros históricos. El manifies
 incluye ambos logs sin intentar que un archivo contenga su propio hash.
 Revisar las copias con `python scripts/cerrar_parte_i.py --verificar`; el hash
 detecta cambios respecto del cierre, no certifica veracidad ni autoría.
-Los scripts que acceden a VMs dependen del helper local `vmctl.py`, que no se
-incluye en el paquete por contener credenciales del laboratorio.
+Los scripts que acceden a VMs dependen del helper `vmctl.py`, que no se incluye
+en el paquete de entrega. Desde la corrección de entrega lee la contraseña de la
+variable de entorno `LAB_PASS`; versiones anteriores del historial de Git la
+contenían en claro, por lo que debe considerarse expuesta y cambiarse en las VMs
+si el laboratorio se reutiliza fuera de la red aislada.
 
 ### Capturas de texto
 

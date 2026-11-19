@@ -6,8 +6,8 @@ VBM="/c/Program Files/Oracle/VirtualBox/VBoxManage.exe"
 OUT="evidencia/pantallazos"
 mkdir -p "$OUT"
 
-USER="lab"
-PASS="lab12345"
+USER="${LAB_USER:-lab}"
+PASS="${LAB_PASS:?Defina LAB_PASS con la contraseña de las VMs}"
 
 # Scan code Enter: 0x1c presionar, 0x9c soltar
 enter() { "$VBM" controlvm "$VM" keyboardputscancode 1c 9c; }
