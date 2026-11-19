@@ -20,20 +20,6 @@
 {\small Repositorio: \url{https://github.com/yatoDx/Laboratorio-seguridad-tcpip}\par}
 \end{titlepage}
 
-\thispagestyle{empty}
-\vspace*{\fill}
-\begin{center}
-\begin{minipage}{0.72\linewidth}\centering
-\rule{0.35\linewidth}{0.4pt}\par\vspace{0.6cm}
-{\itshape\large Todo ocurrió dentro de casa.\par}
-\vspace{0.4cm}
-{\itshape Cada paquete, cada escaneo y cada alerta de este informe\\ nació y murió en un equipo propio, sobre una red cerrada\\ montada solo para aprender. Ningún sistema ajeno fue tocado\\ y nadie fue blanco de prueba alguna.\par}
-\vspace{0.6cm}\rule{0.35\linewidth}{0.4pt}
-\end{minipage}
-\end{center}
-\vspace*{\fill}
-\clearpage
-
 \chapter*{Resumen}
 \thispagestyle{plain}
 Este informe desarrolla la Guía–Taller No.~2 de mecanismos de seguridad para redes IEEE~802.3 con servicios TCP/IP. Primero se monta y verifica un laboratorio aislado de cuatro máquinas virtuales Ubuntu Server 24.04.5 LTS (gateway con NTP y firewall nftables, servidor web nginx, DNS dnsmasq y mensajería XMPP Prosody) y un equipo analista Windows con Wireshark, todos en la red 192.168.50.0/24 y con relojes sincronizados.
@@ -46,3 +32,5 @@ Los resultados muestran que un indicador aislado no confirma un ataque, que medi
 
 \vspace{0.6cm}
 \noindent\textbf{Index Terms}---seguridad de redes, IEEE 802.3, TCP/IP, Wireshark, análisis de PCAP, nftables, detección de anomalías, aprendizaje automático, SIEM, TLS, XMPP, privacidad, consentimiento.
+\par\vspace{0.8cm}
+\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{\small\textbf{Nota:} Este es un trabajo académico desarrollado en equipo personal. Todo ocurrió dentro de un entorno controlado. Cada prueba, paquete y alerta formó parte de un ejercicio académico realizado con equipos propios y máquinas virtuales, utilizando direcciones privadas y tráfico de laboratorio. El trabajo se desarrolló con fines de aprendizaje, sin intervenir sistemas externos ni afectar redes institucionales o de terceros.}}
