@@ -76,8 +76,13 @@ Port-T 192.168.50.30 5222 "XMPP"
 
 # --- 5. Herramientas del analista ---
 Write-Host "`nHerramientas:"
+$wsDir = 'C:\Program Files\Wireshark'
 if (Get-Command wireshark -ErrorAction SilentlyContinue) { Ok "Wireshark instalado" }
-else { Warn "Wireshark no detectado en PATH" }
+elseif (Test-Path (Join-Path $wsDir 'Wireshark.exe')) {
+    $env:Path += ";$wsDir"   # solo para esta sesion: tshark y dumpcap quedan disponibles
+    Ok "Wireshark instalado en $wsDir (no esta en el PATH del sistema; anadido a esta sesion)"
+}
+else { Warn "Wireshark no detectado (ni en PATH ni en $wsDir)" }
 if (Get-Command python -ErrorAction SilentlyContinue) { Ok "Python: $(python --version 2>&1)" }
 else { Warn "Python no detectado" }
 
