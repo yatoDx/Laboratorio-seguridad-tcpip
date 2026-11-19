@@ -1,0 +1,72 @@
+Bien, ya tenemos unos pasos realizados; he actualizado la bitacora; para que me ayudes a continuar con los pasos finales, lo mismo, incluir pantallazos de evidencia que se piden en la bitacora y terminar de desarrollar la parte desde la seccion: Pendiente, con detalle
+Esta es la bitacora:
+# Bitácora — Taller 2: Mecanismos de seguridad en redes IEEE 802.3 / TCP/IP
+
+Registro paso a paso del proceso (instrucción del proyecto: documentar todo lo hecho).
+
+## Paso 0 — Lectura del enunciado (2026-11-15)
+- Parte I: 10 casos de análisis (SYN flood, DNS tunneling, servicios heredados, anomalías con ML, RST TCP, reflexión UDP, ICMP, escaneo de puertos, correlación con SIEM/IA, XMPP/TLS).
+- Parte II: sistema de localización por número telefónico (app móvil + backend + mapa), basado en consentimiento del usuario.
+- Entregables: informe técnico, 10 fichas de caso, capturas y PCAP con SHA-256, reglas de detección, conclusiones sobre límites de la evidencia.
+- Observación: el documento tiene fechas contradictorias ("Octubre 26/2026" y "Entrega: Octubre 12/2026"). Confirmar fecha vigente con el docente.
+- Reglas clave: laboratorio aislado, direcciones privadas, solo tráfico benigno o PCAP didácticos/sintéticos, relojes sincronizados, copia original + copia de trabajo, hash SHA-256.
+
+## Paso 1 — Estructura de trabajo
+Carpetas: evidencias/original (solo lectura), evidencias/trabajo, capturas, logs, fichas, scripts, informe.
+
+## Paso 2 — Control de integridad
+Script `hash_evidencia.py`: copia la evidencia a `original/` en solo lectura, crea la copia de trabajo, calcula SHA-256 y registra caso, analista, fecha, tamaño y hash. (El grupo usa su propia versión, que registra SHA-256, SHA-1 y MD5 en `evidencia.log`.)
+
+## Paso 3 — Plantilla de hallazgo
+`fichas/plantilla_hallazgo.md` con los 9 campos del apartado 7 de la guía más indicadores, análisis, controles, preguntas y regla de detección.
+
+## Paso 4 — Diseño del laboratorio y scripts de verificación (2026-11-18)
+Guía en `claude/guia_montaje_laboratorio.md`; scripts `verificar_laboratorio.sh/.ps1`.
+
+## Paso 5 — Laboratorio montado por el grupo e informe final (2026-11-18)
+Repositorio del grupo: https://github.com/yatoDx/Laboratorio-seguridad-tcpip (commit 7fac583).
+
+**Lo que hay en el repositorio**
+- 4 VMs Ubuntu Server 24.04.5 LTS (VirtualBox 7.2.22) + host Windows como analista, red solo-anfitrión 192.168.50.0/24.
+- Servicios: chrony y nftables (gateway .1), nginx 1.24.0 (web .20), dnsmasq 2.91 (dns .53), prosody 0.12.4 (xmpp .30); analista .10 con Wireshark 4.6.9, Npcap 1.90, Python 3.14.7.
+- Evidencias: 4 `verificacion-*.txt` (todo [OK]), 5 `config-*.txt`, `wireshark-version.txt`, 5 pantallazos, `evidencia.log` con hashes, snapshots `lab-base-aislado`.
+
+**Comprobaciones hechas**
+- Recalculé el SHA-256 de los 15 archivos: 13 coinciden con `evidencia.log`; `wireshark-version.txt` y `config-host.txt` no (ver informe, sección 5).
+- Los 5 pantallazos son consistentes con los textos de evidencia.
+
+**Decisiones del grupo**
+- Hashes que no coinciden y README desactualizado (Wireshark 4.4.12 y `lab.internal` frente a 4.6.9 y `lab.local`): se dejan tal cual para no interferir con la práctica. Quedan registrados en el informe como límites, sin acción.
+- Zeek y Suricata: la guía (apartado 5 y casos 5 y 8) los pide solo "cuando estén disponibles" o "si están instalados", así que son opcionales y no se instalan. Wazuh se sustituye por "un SIEM equivalente" (la guía lo permite): pipeline propio en Python con pandas y scikit-learn.
+
+**Documento de entrega**
+"Informe técnico - Taller 2": secciones 1 a 5, 7 y 8 completas con resultados reales, cinco figuras y diagrama de topología. La sección 6 (fichas de los 10 casos) se llena a medida que se hagan los casos.
+
+## Pendiente, con detalle
+
+### A. Cerrar el laboratorio (antes de los casos)
+1. **Quitar el NAT.** Con cada VM apagada: Configuración > Red > Adaptador 1 > desmarcar "Habilitar adaptador de red". Encender, comprobar con `ip -br addr` que solo queda `enp0s8`, repetir `verificar_laboratorio.sh <rol>` (gateway, web, dns, xmpp), guardar las salidas como evidencia nueva con hash y tomar un snapshot nuevo (`lab-base-aislado-v2`). Actualizar el informe: sección 1 (viñeta de adaptadores), sección 8 (límite del NAT) y plan de mejora.
+2. **Evidencias del analista que faltan.** `w32tm /query /status` (fuente de hora), `timedatectl timesync-status` en una VM cliente (debe mostrar 192.168.50.1) y `verificar_laboratorio.ps1 -Rol analista` completo, cada uno con su hash. Con eso las pruebas 6 y 8 del informe pasan de parcial a cumplida y se agrega el pantallazo correspondiente.
+3. **PCAP base.** Wireshark en "Ethernet 2", cinco minutos de tráfico normal (ping a las 4 VMs, `curl` al web, consultas al DNS y, si hay cliente, sesión XMPP). Guardar `baseline-normal.pcapng`, registrar su hash en `evidencia.log` y agregarlo al informe (secciones 4 y 5). Es la línea base de los casos 1, 4 y 7.
+4. **Aprobación del docente.** Confirmar las versiones (Wireshark 4.6.9, Python 3.14.7, scikit-learn 1.9.1) y que un pipeline propio en Python vale como SIEM equivalente para el Caso 9. Instalar Suricata o Zeek solo si el docente lo exige, y en ese caso hacerlo antes del punto 1 porque necesita el NAT.
+5. **Fecha de entrega.** La guía trae "Octubre 26" y "Octubre 12" de 2026; preguntar al docente cuál vale.
+
+### B. Casos de la Parte I (cada uno: ficha con los 9 campos, evidencia con hash, regla de detección y respuesta a las preguntas de análisis)
+| Caso | Qué falta producir | Insumo que falta |
+|---|---|---|
+| 1 SYN flood | Conteo de SYN, SYN/ACK y ACK por ventana; `netstat -ano` en el host; gráfica; regla nftables con límite de tasa; comparación antes y después | PCAP sintético (generado a archivo, sin enviarlo) y el PCAP base |
+| 2 DNS tunneling | Filtro `udp.port == 53`; longitud y entropía de etiquetas; tabla por host y dominio; verificación con el log de dnsmasq | PCAP sintético con consultas largas; activar `log-queries` en lab-dns |
+| 3 Servicios expuestos | Inventario con `ss -tulpn` en las 4 VMs y `netstat -ano` en el host; eventos de autenticación; matriz riesgo/criticidad; plan de remediación | Salidas de `ss` y de `journalctl` de cada VM |
+| 4 Anomalías con ML | Dataset de características agregadas (conexiones por minuto, bytes por flujo, duración, flags, proporción petición/respuesta); línea base estadística frente a IsolationForest; métricas y matriz de confusión | Script reproducible; datos del PCAP base más sintéticos etiquetados |
+| 5 RST TCP | Filtro `tcp.flags.reset == 1`; tabla de flujos afectados; correlación con logs de nginx y prosody | PCAP didáctico con RST; sin Zeek ni Suricata |
+| 6 Reflexión UDP | Gráficas de paquetes y bytes por segundo; inventario de servicios; revisión de que dnsmasq no es resolvedor abierto | PCAP didáctico o contadores simulados |
+| 7 ICMP | Filtro `icmp`; tabla de tamaños y frecuencias por IP; regla de límite de tasa | PCAP sintético con payloads atípicos; el PCAP base como referencia |
+| 8 Escaneo de puertos | Conteo de puertos únicos por origen; lista de exposición; regla de detección | PCAP sintético o log de nftables con regla `log`; sin Zeek ni Suricata |
+| 9 Correlación y SIEM | Pipeline en Python que normaliza logs de nftables, nginx, dnsmasq y sistema; características por host y ventana; puntaje explicable; diagrama del pipeline; alerta enriquecida; registro de validación humana | Logs exportados de las 4 VMs; el LLM solo resume alertas anonimizadas |
+| 10 XMPP y TLS | Checklist TLS de prosody; certificado (nombre, vigencia, cadena) con `openssl s_client -starttls xmpp -connect 192.168.50.30:5222`; logs de negociación; captura que muestre contenido cifrado | Salidas de `openssl` y de los logs de prosody |
+
+### C. Parte II (programación)
+Sistema de ubicación con consentimiento explícito: app móvil con permiso de GPS y verificación por código, API REST con autenticación por número y token, base de datos, mapa con Leaflet, historial, geofencing opcional y bot de Telegram opcional (el usuario inicia el chat y envía su ubicación). Falta decidir el lenguaje y la base de datos, y diseñar el esquema.
+
+### D. Entrega final
+Informe con la sección 6 (fichas) y la sección 8 actualizadas, reglas de detección propuestas, PCAP con hash, capturas legibles y conclusiones sobre los límites de la evidencia.
