@@ -5,8 +5,11 @@ Uso:
   python vmctl.py run <host> <puerto> <comando...>
   python vmctl.py put <host> <puerto> <archivo_local> <ruta_remota>
 
-Credenciales (definidas abajo): usuario 'lab', contraseña 'lab12345'.
+Credenciales: se leen de las variables de entorno LAB_USER (por defecto 'lab')
+y LAB_PASS (obligatoria). Ejemplo en PowerShell:
+  $env:LAB_PASS = '<contraseña de las VMs>'
 """
+import os
 import sys
 
 import paramiko
@@ -17,11 +20,17 @@ for _s in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-USER = "lab"
-PASSWORD = "lab12345"
+USER = os.environ.get("LAB_USER", "lab")
+PASSWORD = os.environ.get("LAB_PASS", "")
+
+
+def _require_password():
+    if not PASSWORD:
+        sys.exit("Defina la variable de entorno LAB_PASS con la contraseña de las VMs.")
 
 
 def connect(host, port):
+    _require_password()
     c = paramiko.SSHClient()
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     c.connect(
