@@ -16,7 +16,7 @@ Este repositorio contiene los scripts de configuración, plantillas de servicios
 | Equipo / VM | IP | Rol y Servicios Principales |
 |-------------|----|------------------------------|
 | **gateway** | `192.168.50.1` | Router perimetral, firewall `nftables`, servidor de tiempo `chrony` (NTP stratum 10) |
-| **analista** (host) | `192.168.50.10` | Estación de captura y análisis (Wireshark 4.4.12, Npcap) |
+| **analista** (host) | `192.168.50.10` | Estación de captura y análisis (Wireshark 4.6.9, Npcap) |
 | **web** | `192.168.50.20` | Servidor HTTP `nginx` |
 | **xmpp** | `192.168.50.30` | Servidor de mensajería `prosody` (XMPP en 5222/tcp) |
 | **dns** | `192.168.50.53` | Servidor DNS local `dnsmasq` con zona `lab.internal` |
@@ -35,6 +35,10 @@ Este repositorio contiene los scripts de configuración, plantillas de servicios
 - **`hash_evidencia.py`**: Generador de hashes criptográficos (SHA-256, SHA-1, MD5) para trazabilidad de evidencias.
 - **`evidencia.log`**: Registro de hashes e integridad de las evidencias.
 - **`informe-laboratorio.md`**: Informe técnico completo y detallado del laboratorio.
+- **`fichas/`, `scripts/`, `evidencia/casos/`, `entrega-parte-i/`**: Parte I (10 casos de análisis): fichas, generadores y analizadores, evidencia y paquete de entrega con manifiesto SHA-256.
+- **`parte2/`**: Parte II, sistema de localización con consentimiento (API FastAPI + interfaz web con mapa). Ver [`parte2/README.md`](parte2/README.md).
+- **`ejecutar_pruebas.sh`**: Ejecuta las pruebas de la Parte I (34) y de la Parte II (61).
+- **Credenciales:** `vmctl.py` y `evidencia/capturar_pantallazos.sh` leen `LAB_USER` (por defecto `lab`) y `LAB_PASS` del entorno.
 
 ---
 

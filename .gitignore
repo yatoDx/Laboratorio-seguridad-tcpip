@@ -7,3 +7,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+
+# Parte II
+parte2/*.db
+.pytest_cache/
