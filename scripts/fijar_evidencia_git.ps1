@@ -5,6 +5,12 @@
 # cualquier clon (Windows o Linux).
 $ErrorActionPreference = 'Stop'
 
+Write-Host '0/4 Restaurando saltos de linea CRLF originales (Git los dejo en LF)...'
+# Restaura lo reproducible y registra como ENMIENDAS en el manifiesto los 4 archivos
+# de saltos mixtos que Git ya alteró (con su huella original y la actual).
+python scripts/reparar_evidencia.py --aplicar --enmendar
+if ($LASTEXITCODE -ne 0) { throw 'No se pudo reparar la evidencia. No se cambia nada en Git.' }
+
 Write-Host '1/4 Verificando las copias locales contra el manifiesto...'
 python scripts/cerrar_parte_i.py --verificar
 if ($LASTEXITCODE -ne 0) {
