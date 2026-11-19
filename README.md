@@ -41,3 +41,4 @@ Este repositorio contiene los scripts de configuración, plantillas de servicios
 ## 📄 Informe Técnico Completo
 
 Consulte el archivo [informe-laboratorio.md](informe-laboratorio.md) para ver la documentación exhaustiva con resultados, diagramas de flujo, políticas de firewall y matriz de conectividad.
+

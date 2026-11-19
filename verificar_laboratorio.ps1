@@ -15,7 +15,7 @@ function Fail($m) { Write-Host "[FALTA] $m" -ForegroundColor Red;    $script:FAI
 function Warn($m) { Write-Host "[?]    $m" -ForegroundColor Yellow;  $script:WARN += $m }
 
 Write-Host "=============================================="
-Write-Host " Verificación de laboratorio - rol: $Rol"
+Write-Host " Verificacion de laboratorio - rol: $Rol"
 Get-Date
 Write-Host "=============================================="
 
@@ -41,7 +41,7 @@ if ($iface) {
     Warn "DNS 192.168.50.53 NO configurado en $($iface.Name)"
   }
 } else {
-  Fail "No se detectó adaptador host-only"
+  Fail "No se detecto adaptador host-only"
 }
 
 # --- 2. Conectividad ---

@@ -122,3 +122,99 @@ sha1    : 0c08fbf2d22e29ca3c518ebcfcbd9ceb016bcaf0
 md5     : f61d692aab98b60a9ab757b0de879107
 ----------------------------------------------------------------------
 fin
+======================================================================
+ Evidencia - 2026-11-18 19:43:55.057837
+======================================================================
+archivo : evidencia/analista-w32tm.txt
+tamano  : 1269 bytes
+mtime   : 2026-11-18 19:33:14.645730
+sha256  : 010855ffff8e01f3b1d775fb8ca69871e7f8c8218a0d1cd6d7a109ad576dad1c
+sha1    : 03c569223e44bb0d9693230459ebcdc15e1aa8a1
+md5     : 8f88f2a1ef1ffdf2803c2358e40919b1
+----------------------------------------------------------------------
+archivo : evidencia/analista-timesync-cliente.txt
+tamano  : 1205 bytes
+mtime   : 2026-11-18 19:36:22.111506
+sha256  : 2b73b0cb6a428f12aa65436670d79f5f937692a1f609bde5022a725eddde6574
+sha1    : 37c094fd99b6812387fcfeaffed95cf716a9d7e6
+md5     : a83d04270101000402a79730e0ab7668
+----------------------------------------------------------------------
+archivo : evidencia/verificacion-analista.txt
+tamano  : 979 bytes
+mtime   : 2026-11-18 19:39:09.637028
+sha256  : a7eebfd6287d3eb99dd156aad70c3aa3785be86205129d6eb84b3a9c5ce40c0d
+sha1    : fa5bfc7fea45ec1d58fdf0df497515dfb1ba4820
+md5     : 3fe072181b569e3b47a53720323069d3
+----------------------------------------------------------------------
+archivo : evidencia/pantallazos/host-w32tm.png
+tamano  : 47639 bytes
+mtime   : 2026-11-18 19:42:14.878810
+sha256  : d5052c17ef25476318ce7083573d4c0ca8bb0555772e9338244d75dd2127d306
+sha1    : 876271e1d8f2fcbb01318477a0b4bf8db3b2615b
+md5     : b2b2cce6bab2306ff6104e073aacd4d3
+----------------------------------------------------------------------
+archivo : evidencia/pantallazos/web-ntp.png
+tamano  : 11857 bytes
+mtime   : 2026-11-18 19:39:56.350092
+sha256  : 1602e51ff64a67c91dec466246b1beff2ad60dfefbeb6ff644d8787b57135231
+sha1    : fcc663556be236a1dc32a2a4bc5b393c9dc80c0d
+md5     : 1bb05f9e29b91c4f9d2a3909bd77a308
+----------------------------------------------------------------------
+archivo : evidencia/pantallazos/host-verificacion-analista.png
+tamano  : 47828 bytes
+mtime   : 2026-11-18 19:43:31.069823
+sha256  : 57b6d9c00abce6b51db3e3b4057286a2b5ef9d424d4b87aab8da08ba9b79ca6d
+sha1    : c40ac15dd92a42f7b59354a49648491a8bf5be7a
+md5     : e1e4827a5cf2c4169da3a512103c4fca
+----------------------------------------------------------------------
+fin
+======================================================================
+ Evidencia - 2026-11-18 19:48:54.035355
+======================================================================
+archivo : evidencia/verificacion-aislado-gateway.txt
+tamano  : 1056 bytes
+mtime   : 2026-11-18 19:47:55.292736
+sha256  : 99c3ca40a03f97ad37eb46ba00324c4f730d99944fd03aadeea667447133ef08
+sha1    : a90924fbcadc4aa9fdf915e6e6e7a0fd985cf63e
+md5     : fab91286ff6aeb4bb89507e20d5d4c76
+----------------------------------------------------------------------
+archivo : evidencia/verificacion-aislado-web.txt
+tamano  : 998 bytes
+mtime   : 2026-11-18 19:47:21.905958
+sha256  : 5873537a56d71a1ed704b940d179594002fdd1d96b53b1e82123534594dcec25
+sha1    : 5854abf2bda1329423a0082f88fd9e3db874ab77
+md5     : dfbf3c37fff90519ef55728dd594625c
+----------------------------------------------------------------------
+archivo : evidencia/verificacion-aislado-dns.txt
+tamano  : 1003 bytes
+mtime   : 2026-11-18 19:47:24.150456
+sha256  : af4f884b3824e5af8accbcca9957393a88842798dc875536b92e4dfde6a510dd
+sha1    : 8d6bfaa210aaf24bd3a63ba575eec95b0239f095
+md5     : f89519ec0243628dac27ce418480c1ec
+----------------------------------------------------------------------
+archivo : evidencia/verificacion-aislado-xmpp.txt
+tamano  : 961 bytes
+mtime   : 2026-11-18 19:47:26.305039
+sha256  : 4b0829267b99e9f6b475f8b7d1b5e930c9d6278de3b64cf37984ad99d9e8335b
+sha1    : 4d34c59640c39ed962f6155379c42adefadb4c34
+md5     : 4b8146a41670fbcb443cf12229129c50
+----------------------------------------------------------------------
+archivo : evidencia/pantallazos/gateway-aislado.png
+tamano  : 12387 bytes
+mtime   : 2026-11-18 19:48:36.751749
+sha256  : 56b3877d1ad2e7607604bfd57f9940efd9423aaa42cd7be10290b6a9db84b9b1
+sha1    : c11ef94f9376f2d863d6e65efed04119839f2a7c
+md5     : bc46f23b054112c0baddbd7eec5eeaac
+----------------------------------------------------------------------
+fin
+======================================================================
+ Evidencia - 2026-11-18 19:55:08.558882
+======================================================================
+archivo : evidencia/baseline-normal.pcapng
+tamano  : 212848 bytes
+mtime   : 2026-11-18 19:54:27.289294
+sha256  : 301ea4766c642919734e3649b1de4c049bb4bebeb8ff9b4125306322b3b076ff
+sha1    : dc2206301d0ef2f500965c1e03bb53cbd754b101
+md5     : a2fe033fe226c36a14bb82aec8c3092c
+----------------------------------------------------------------------
+fin
